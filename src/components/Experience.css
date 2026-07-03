@@ -4,44 +4,50 @@
 }
 
 .timeline {
+  --rail: 26px;
+  --dot: 12px;
+  --gap: 2.25rem;
   margin-top: 2.5rem;
   display: grid;
-  gap: 1.25rem;
+  gap: var(--gap);
 }
 
-.timeline__item {
+/* Each entry: dot rail on the left, content on the right */
+.timeline__row {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 1.5rem;
+  grid-template-columns: var(--rail) 1fr;
+  gap: 1.1rem;
   align-items: start;
 }
 
-.timeline__meta {
-  position: sticky;
-  top: 84px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding-top: 0.35rem;
+.timeline__rail {
+  position: relative;
+  align-self: stretch;
 }
 
-.timeline__period {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--accent);
+/* Continuous connector line linking the dots (skip the last one) */
+.timeline__row:not(:last-child) .timeline__rail::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: calc(-1 * var(--gap));
+  left: calc(var(--rail) / 2);
+  transform: translateX(-50%);
+  width: 2px;
+  background: var(--line-strong);
 }
 
-.timeline__company {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.05rem;
-}
-
-.timeline__card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  background: var(--bg);
+/* Minimal accent dot; the surface-colored ring masks the line behind it */
+.timeline__node {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: var(--dot);
+  height: var(--dot);
+  margin: 6px auto 0;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--surface);
 }
 
 .timeline__role {
@@ -49,16 +55,29 @@
   font-weight: 600;
   font-size: 1.2rem;
   letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.timeline__company {
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+.timeline__period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
 }
 
 .timeline__project {
   color: var(--muted);
   font-size: 0.92rem;
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
 }
 
 .timeline__list {
-  margin-top: 1.15rem;
+  margin-top: 1rem;
   display: grid;
   gap: 0.6rem;
 }
@@ -87,18 +106,20 @@
   flex-wrap: wrap;
   gap: 0.45rem;
   margin-top: 1.35rem;
+  padding-bottom: 0.25rem;
 }
 
-@media (max-width: 720px) {
-  .timeline__item {
-    grid-template-columns: 1fr;
+@media (max-width: 560px) {
+  .timeline {
+    --rail: 20px;
+    --gap: 1.85rem;
+  }
+
+  .timeline__row {
     gap: 0.85rem;
   }
 
-  .timeline__meta {
-    position: static;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 0.75rem;
+  .timeline__role {
+    font-size: 1.1rem;
   }
 }

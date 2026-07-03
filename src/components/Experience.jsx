@@ -13,14 +13,15 @@ export default function Experience() {
 
         <ol className="timeline">
           {experience.map((job) => (
-            <li className="timeline__item" key={job.role + job.period}>
-              <div className="timeline__meta">
-                <span className="timeline__period">{job.period}</span>
-                <span className="timeline__company">{job.company}</span>
+            <li className="timeline__row" key={job.role + job.period}>
+              <div className="timeline__rail">
+                <span className="timeline__node" aria-hidden="true" />
               </div>
 
-              <div className="timeline__card">
+              <div className="timeline__body">
                 <h3 className="timeline__role">{job.role}</h3>
+                <p className="timeline__company">{job.company}</p>
+                <p className="timeline__period">{job.period}</p>
                 <p className="timeline__project">{job.project}</p>
 
                 <ul className="timeline__list">
