@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { nav, links } from '../data/portfolio'
-import { GitHubIcon } from './Icons'
+import { nav } from '../data/portfolio'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -36,15 +35,6 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <a
-            className="nav__cta"
-            href={links.github}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setOpen(false)}
-          >
-            <GitHubIcon width={16} height={16} /> GitHub
-          </a>
         </nav>
 
         <button

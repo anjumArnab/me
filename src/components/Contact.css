@@ -14,7 +14,8 @@
 .contact__lead {
   color: var(--muted);
   font-size: 1.05rem;
-  max-width: 46ch;
+  max-width: none;
+  white-space: nowrap;
   margin-top: 1rem;
 }
 

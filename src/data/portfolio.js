@@ -156,7 +156,7 @@ export const projects = [
 // "Currently leveling up" — growth areas backed by real repos, framed as momentum.
 export const learning = {
   intro:
-    'Flutter UI is my home base — and I am actively expanding my range: backend services and native platform work, each backed by real shipped code, not just tutorials.',
+    'Flutter is my home base — and I am actively expanding my range: backend services and native platform work, each backed by real shipped code, not just tutorials.',
   items: [
     {
       area: 'Native Android',

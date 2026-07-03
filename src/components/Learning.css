@@ -4,8 +4,13 @@
 }
 
 .learning__head {
-  max-width: 48ch;
+  max-width: 90ch;
   margin-bottom: 2.5rem;
+}
+
+/* Let the intro run wider than the global lead so it sits on two lines */
+.learning__head .section-lead {
+  max-width: 90ch;
 }
 
 .learning__grid {
