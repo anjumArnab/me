@@ -7,7 +7,7 @@
   --rail: 26px;
   --dot: 12px;
   --gap: 2.25rem;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   display: grid;
   gap: var(--gap);
 }
