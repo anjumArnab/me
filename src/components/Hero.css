@@ -44,6 +44,11 @@
   animation: roll-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+/* Category path segment reads like a shell path */
+.roll--path .roll__word {
+  color: var(--accent);
+}
+
 @keyframes roll-up {
   from {
     transform: translateY(100%);

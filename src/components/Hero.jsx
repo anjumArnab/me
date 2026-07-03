@@ -1,15 +1,16 @@
 import { profile, links, skills } from '../data/portfolio'
 import { MailIcon, GitHubIcon, PinIcon } from './Icons'
-import RollingText from './RollingText'
+import RollingSkill from './RollingSkill'
 import meImg from '../assets/Me.jpg'
 import './Hero.css'
 
-// Core skills to roll through, with parentheticals trimmed for a tidy pill.
+// {path, word} pairs to roll through: category becomes the shell path,
+// skill becomes the value. Parentheticals trimmed for a tidy pill.
+const slug = (group) => group.toLowerCase().split(' ')[0]
+const clean = (item) => item.replace(/\s*\(.*\)/, '').trim()
 const rollingSkills = [
-  'flutter developer',
-  ...new Set(
-    skills.flatMap((s) => s.items).map((x) => x.replace(/\s*\(.*\)/, '').trim())
-  ),
+  { path: 'main', word: 'Flutter' },
+  ...skills.flatMap((g) => g.items.map((i) => ({ path: slug(g.group), word: clean(i) }))),
 ]
 
 export default function Hero() {
@@ -19,8 +20,8 @@ export default function Hero() {
         <div className="hero__col">
           {/* Terminal-style status line — the signature motif */}
           <p className="hero__status">
-            <span className="hero__prompt">$</span> ~/skills ·{' '}
-            <RollingText words={rollingSkills} />
+            <span className="hero__prompt">$</span>{' '}
+            <RollingSkill items={rollingSkills} />
           </p>
 
           <h1 className="hero__name">{profile.name}</h1>
