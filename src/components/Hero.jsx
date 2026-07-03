@@ -20,7 +20,6 @@ export default function Hero() {
         <div className="hero__col">
           {/* Terminal-style status line — the signature motif */}
           <p className="hero__status">
-            <span className="hero__prompt">$</span>{' '}
             <RollingSkill items={rollingSkills} />
           </p>
 

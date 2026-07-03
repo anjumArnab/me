@@ -24,7 +24,7 @@ export default function RollingSkill({ items, interval = 1900 }) {
           {cur.path}
         </span>
       </span>
-      {' · '}
+      {' > '}
       <span className="roll">
         <span className="roll__word" key={i}>
           {cur.word}
