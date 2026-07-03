@@ -15,8 +15,14 @@
   color: var(--muted);
   font-size: 1.05rem;
   max-width: none;
-  white-space: nowrap;
   margin-top: 1rem;
+}
+
+/* Keep it on a single line only where there's room; wrap on mobile */
+@media (min-width: 900px) {
+  .contact__lead {
+    white-space: nowrap;
+  }
 }
 
 .contact__row {
