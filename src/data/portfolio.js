@@ -180,15 +180,38 @@ export const learning = {
         { label: 'Easy-Pay-SSL', url: 'https://github.com/anjumArnab/Easy-Pay-SSL' },
       ],
     },
-    {
-      area: 'APIs & integration',
-      note: 'REST/CRUD practice and third-party API integration across many builds.',
-      repos: [
-        { label: 'BizCRUD', url: 'https://github.com/anjumArnab/BizCRUD' },
-        { label: 'Write-Right', url: 'https://github.com/anjumArnab/Write-Right' },
-      ],
-    },
   ],
+}
+
+// A teaching resource born from a real gap I hit while learning OOP.
+export const dartOop = {
+  title: 'Dart OOP, mapped to real apps',
+  problem: [
+    'I started programming in mid-2020 with Python, where tutorials taught core syntax and OOP in the same lesson — so I assumed OOP was a beginner-level topic.',
+    'But the examples were always abstract — Animal, Cat, Vehicle — and I could never connect inheritance, abstraction, and polymorphism to real app-development scenarios. Many tutorials still teach it this way.',
+  ],
+  solution:
+    'So I built a Dart OOP reference where every example is aligned with practical, real-world app-development use cases — not animals and vehicles.',
+  // Rendered as a git-style diff: 'del' (abstract) vs 'add' (real app).
+  diff: {
+    file: 'payment_method.dart',
+    lines: [
+      { type: 'comment', text: '// OOP, the way tutorials teach it' },
+      { type: 'del', text: 'class Animal {' },
+      { type: 'del', text: "  void sound() => print('sound');" },
+      { type: 'del', text: '}' },
+      { type: 'del', text: 'class Cat extends Animal { ... }' },
+      { type: 'blank' },
+      { type: 'comment', text: '// the same idea, in a real app' },
+      { type: 'add', text: 'abstract class PaymentMethod {' },
+      { type: 'add', text: '  Future<void> pay(double amount);' },
+      { type: 'add', text: '}' },
+      { type: 'add', text: 'class BkashPayment extends PaymentMethod { ... }' },
+      { type: 'add', text: 'class CardPayment  extends PaymentMethod { ... }' },
+    ],
+    note: 'Same inheritance and polymorphism — mapped to a feature you actually build.',
+  },
+  repo: { label: 'anjumArnab/dart_oop', url: 'https://github.com/anjumArnab/dart_oop' },
 }
 
 export const education = {
@@ -203,6 +226,7 @@ export const nav = [
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'learning', label: 'Learning' },
+  { id: 'dart-oop', label: 'Dart OOP' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ]

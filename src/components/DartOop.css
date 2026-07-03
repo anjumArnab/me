@@ -1,0 +1,142 @@
+/* Text and diff card side by side */
+.dartoop__row {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.dartoop__body {
+  min-width: 0;
+}
+
+.dartoop__para {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.dartoop__para + .dartoop__para {
+  margin-top: 0.9rem;
+}
+
+.dartoop__solution {
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-top: 1.15rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+/* Git-style diff card ----------------------------------------------------- */
+.diff {
+  --diff-add: #067647;
+  --diff-add-bg: rgba(6, 118, 71, 0.09);
+  --diff-del: #b42318;
+  --diff-del-bg: rgba(217, 45, 32, 0.08);
+
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-mono);
+}
+
+/* File-header bar */
+.diff__head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.diff__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.diff__dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.diff__file {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Code lines */
+.diff__code {
+  padding: 0.65rem 0;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+.diff__line {
+  display: flex;
+  padding: 0 0.9rem;
+  white-space: pre;
+}
+
+.diff__sign {
+  width: 1.25ch;
+  flex: none;
+  color: var(--faint);
+  user-select: none;
+}
+
+.diff__text {
+  color: var(--ink);
+}
+
+.diff__line--comment .diff__text {
+  color: var(--faint);
+}
+
+.diff__line--del {
+  background: var(--diff-del-bg);
+}
+
+.diff__line--del .diff__sign,
+.diff__line--del .diff__text {
+  color: var(--diff-del);
+}
+
+.diff__line--add {
+  background: var(--diff-add-bg);
+}
+
+.diff__line--add .diff__sign,
+.diff__line--add .diff__text {
+  color: var(--diff-add);
+}
+
+.diff__note {
+  padding: 0.85rem 0.9rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.dartoop__cta {
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 820px) {
+  .dartoop__row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
