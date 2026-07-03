@@ -226,7 +226,6 @@ export const nav = [
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'learning', label: 'Learning' },
-  { id: 'dart-oop', label: 'Dart OOP' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ]
