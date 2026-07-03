@@ -1,39 +1,140 @@
-.skills__grid {
+/* Interactive terminal for the skills section */
+.term {
   margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.skills__card {
+  max-width: 680px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  overflow: hidden;
   background: var(--surface);
-  padding: 1.35rem;
-  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.skills__card:hover {
-  border-color: var(--line-strong);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-}
-
-.skills__group {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
 }
 
-.skills__items {
+/* Window title bar with traffic-light dots */
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.term__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.term__dots i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.term__title {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+/* Scrollable output area */
+.term__body {
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem 1.1rem 1.15rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink);
+  cursor: text;
+}
+
+.term__entry {
+  margin-bottom: 0.15rem;
+}
+
+.term__line {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  align-items: baseline;
 }
 
-.skills__items .tag {
-  background: var(--bg);
+.term__prompt {
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 0.55rem;
+  white-space: nowrap;
+}
+
+.term__cmd {
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.term__out {
+  margin: 0.1rem 0 0.5rem;
+}
+
+/* `ls` grid of tokens — directories in accent, files in default ink */
+.term__ls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.4rem;
+}
+
+.term__dir {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.term__file {
+  color: var(--ink);
+}
+
+.term__muted {
+  color: var(--muted);
+}
+
+.term__err {
+  color: #e5484d;
+}
+
+.term__help > div {
+  line-height: 1.8;
+}
+
+/* Live input line */
+.term__input-line {
+  flex-wrap: nowrap;
+}
+
+.term__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--ink);
+  caret-color: var(--accent);
+  padding: 0;
+}
+
+.term__input::placeholder {
+  color: var(--faint);
+}
+
+/* Thin, unobtrusive scrollbar */
+.term__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.term__body::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 999px;
+}
+
+@media (max-width: 560px) {
+  .term__body {
+    height: 260px;
+    font-size: 0.8rem;
+  }
 }
