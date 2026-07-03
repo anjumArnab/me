@@ -28,6 +28,39 @@
   font-weight: 700;
 }
 
+/* Rolling skills in the status line */
+.roll {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25em;
+  vertical-align: bottom;
+}
+
+.roll__word {
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--ink);
+  animation: roll-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes roll-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll__word {
+    animation: none;
+  }
+}
+
 .hero__name {
   font-family: var(--font-display);
   font-weight: 700;

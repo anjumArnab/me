@@ -1,7 +1,16 @@
-import { profile, links } from '../data/portfolio'
+import { profile, links, skills } from '../data/portfolio'
 import { MailIcon, GitHubIcon, PinIcon } from './Icons'
+import RollingText from './RollingText'
 import meImg from '../assets/Me.jpg'
 import './Hero.css'
+
+// Core skills to roll through, with parentheticals trimmed for a tidy pill.
+const rollingSkills = [
+  'flutter developer',
+  ...new Set(
+    skills.flatMap((s) => s.items).map((x) => x.replace(/\s*\(.*\)/, '').trim())
+  ),
+]
 
 export default function Hero() {
   return (
@@ -10,7 +19,8 @@ export default function Hero() {
         <div className="hero__col">
           {/* Terminal-style status line — the signature motif */}
           <p className="hero__status">
-            <span className="hero__prompt">$</span> {profile.statusLine}
+            <span className="hero__prompt">$</span> ~/skills ·{' '}
+            <RollingText words={rollingSkills} />
           </p>
 
           <h1 className="hero__name">{profile.name}</h1>
