@@ -64,20 +64,6 @@
   margin-top: 2rem;
 }
 
-.hero__jump {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 500;
-  color: var(--muted);
-  transition: color 0.15s ease, gap 0.15s ease;
-}
-
-.hero__jump:hover {
-  color: var(--ink);
-  gap: 0.65rem;
-}
-
 /* Media column */
 .hero__media {
   display: flex;

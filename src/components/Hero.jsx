@@ -1,5 +1,5 @@
 import { profile, links } from '../data/portfolio'
-import { MailIcon, GitHubIcon, ArrowIcon, PinIcon } from './Icons'
+import { MailIcon, GitHubIcon, PinIcon } from './Icons'
 import meImg from '../assets/Me.jpg'
 import './Hero.css'
 
@@ -27,9 +27,6 @@ export default function Hero() {
             </a>
             <a className="btn btn-ghost" href={links.github} target="_blank" rel="noreferrer">
               <GitHubIcon width={16} height={16} /> View GitHub
-            </a>
-            <a className="hero__jump" href="#projects">
-              See projects <ArrowIcon width={16} height={16} />
             </a>
           </div>
         </div>
