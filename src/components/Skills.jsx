@@ -94,6 +94,16 @@ export default function Skills() {
       case '':
         return { output: null }
       case 'ls': {
+        // `ls <category>` lists that category without changing directory
+        if (arg && arg !== '.') {
+          if (arg === '..' || arg === '/' || arg === '~') return { output: <Ls dirs /> }
+          const g = findGroup(arg)
+          if (!g)
+            return {
+              output: <span className="term__err">ls: no such category: {arg}</span>,
+            }
+          return { output: <Ls files={g.items} /> }
+        }
         if (!cwd) return { output: <Ls dirs /> }
         const g = skills.find((s) => s.group === cwd)
         return { output: <Ls files={g.items} /> }

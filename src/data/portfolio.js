@@ -27,6 +27,7 @@ export const skills = [
   { group: 'Languages', items: ['Dart', 'JavaScript', 'PHP (Laravel)'] },
   { group: 'Backend', items: ['Firebase', 'Laravel', 'Node.js'] },
   { group: 'State management', items: ['Provider', 'GetX'] },
+  { group: 'Architecture', items: ['Feature-based', 'Clean Architecture'] },
   { group: 'Local database', items: ['Hive', 'SQFLite', 'Drift'] },
   { group: 'Networking', items: ['REST (HTTP, Dio)', 'Socket.IO'] },
   { group: 'Navigation', items: ['GoRouter'] },
