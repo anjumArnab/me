@@ -1,4 +1,4 @@
-import { GitHubIcon, PlayIcon, PackageIcon, ArrowUpRight } from './Icons'
+import { GitHubIcon, PlayIcon, PackageIcon } from './Icons'
 
 const LINK_META = {
   github: { label: 'Source', Icon: GitHubIcon },
@@ -45,7 +45,6 @@ export default function ProjectCard({ project, index }) {
             >
               <Icon width={15} height={15} />
               {label}
-              <ArrowUpRight width={13} height={13} className="project__link-ext" />
             </a>
           )
         })}

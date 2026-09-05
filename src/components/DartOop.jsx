@@ -1,6 +1,6 @@
 import { dartOop } from '../data/portfolio'
 import { useReveal } from '../hooks/useReveal'
-import { GitHubIcon, ArrowUpRight } from './Icons'
+import { GitHubIcon } from './Icons'
 import './DartOop.css'
 
 const SIGN = { del: '-', add: '+' }
@@ -31,7 +31,6 @@ export default function DartOop() {
               rel="noreferrer"
             >
               <GitHubIcon width={16} height={16} /> View the reference
-              <ArrowUpRight width={15} height={15} />
             </a>
           </div>
 

@@ -1,6 +1,5 @@
 import { projects, links } from '../data/portfolio'
 import { useReveal } from '../hooks/useReveal'
-import { ArrowUpRight } from './Icons'
 import ProjectCard from './ProjectCard'
 import './Projects.css'
 
@@ -16,7 +15,7 @@ export default function Projects() {
             <h2 className="section-title">Selected work</h2>
           </div>
           <a className="projects__all" href={links.github} target="_blank" rel="noreferrer">
-            All repositories <ArrowUpRight width={15} height={15} />
+            All repositories
           </a>
         </div>
 

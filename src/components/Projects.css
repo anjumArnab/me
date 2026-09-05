@@ -156,7 +156,3 @@
   background: var(--accent-ink);
   border-color: var(--accent-ink);
 }
-
-.project__link-ext {
-  opacity: 0.55;
-}

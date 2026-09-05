@@ -1,6 +1,5 @@
 import { learning } from '../data/portfolio'
 import { useReveal } from '../hooks/useReveal'
-import { ArrowUpRight } from './Icons'
 import './Learning.css'
 
 export default function Learning() {
@@ -25,7 +24,6 @@ export default function Learning() {
                   <li key={r.url}>
                     <a href={r.url} target="_blank" rel="noreferrer">
                       {r.label}
-                      <ArrowUpRight width={14} height={14} />
                     </a>
                   </li>
                 ))}
