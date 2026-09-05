@@ -123,7 +123,6 @@ export const projects = [
     ],
     stack: ['Flutter', 'shared_preferences', 'audioplayers'],
     links: [
-      // TODO: confirm real Play Store URL — placeholder from applicationId (returns 404).
       { type: 'play', url: 'https://play.google.com/store/apps/details?id=com.app.dino_dash' },
     ],
   },
