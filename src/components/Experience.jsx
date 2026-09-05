@@ -22,21 +22,26 @@ export default function Experience() {
                 <h3 className="timeline__role">{job.role}</h3>
                 <p className="timeline__company">{job.company}</p>
                 <p className="timeline__period">{job.period}</p>
-                <p className="timeline__project">{job.project}</p>
 
-                <ul className="timeline__list">
-                  {job.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
+                {job.projects.map((project) => (
+                  <div className="timeline__project" key={project.name}>
+                    <p className="timeline__project-name">{project.name}</p>
 
-                <div className="timeline__stack">
-                  {job.stack.map((s) => (
-                    <span className="tag" key={s}>
-                      {s}
-                    </span>
-                  ))}
-                </div>
+                    <ul className="timeline__list">
+                      {project.highlights.map((h, i) => (
+                        <li key={i}>{h}</li>
+                      ))}
+                    </ul>
+
+                    <div className="timeline__stack">
+                      {project.stack.map((s) => (
+                        <span className="tag" key={s}>
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </li>
           ))}

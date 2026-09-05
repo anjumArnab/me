@@ -44,39 +44,66 @@ export const skills = [
   },
 ]
 
+// A role can span several products, so each job holds a list of projects.
+// Both lists run newest-first: latest job first, latest project first within it.
 export const experience = [
   {
     role: 'Junior Software Engineer',
     company: '6amTech',
     period: 'May 2025 – Present',
-    project: 'SixValley — Multi-Vendor E-Commerce (User, Vendor & Delivery apps)',
-    highlights: [
-      'Built the Auction feature across the SixValley ecosystem, turning Figma designs into production-ready Flutter and coordinating backend integration across multiple apps.',
-      'Resolved 100+ bugs in the Auction module, improving stability and user experience.',
-      'Integrated REST APIs and worked with backend engineers through the full feature lifecycle.',
-      'Implemented payment gateways, push notifications, and deep linking for auction workflows.',
-      'Collaborated with UI/UX designers, backend engineers, QA, and project managers to ship features.',
+    projects: [
+      {
+        name: 'Demandium — Service Marketplace (User, Provider & Serviceman apps)',
+        highlights: [
+          'Delivered a full redesign of the user, provider, and serviceman apps.',
+          'Integrated a new business model across the ecosystem, reworking the flows it touched.',
+        ],
+        stack: ['Flutter', 'GetX', 'REST'],
+      },
+      {
+        name: '6amMart Service Module — Service Marketplace (User, Provider & Serviceman apps)',
+        highlights: [
+          'Designed and built the service module UI across all three apps — user, provider, and serviceman.',
+          'Integrated the REST APIs behind the service marketplace flows end to end.',
+          'Handled state management for the module consistently across the three apps.',
+        ],
+        stack: ['Flutter', 'GetX', 'Provider', 'REST'],
+      },
+      {
+        name: 'SixValley — Multi-Vendor E-Commerce (User, Vendor & Delivery apps)',
+        highlights: [
+          'Built the Auction feature across the SixValley ecosystem, turning Figma designs into production-ready Flutter and coordinating backend integration across multiple apps.',
+          'Resolved 100+ bugs in the Auction module, improving stability and user experience.',
+          'Integrated REST APIs and worked with backend engineers through the full feature lifecycle.',
+          'Implemented payment gateways, push notifications, and deep linking for auction workflows.',
+          'Collaborated with UI/UX designers, backend engineers, QA, and project managers to ship features.',
+        ],
+        stack: ['Flutter', 'GoRouter', 'Provider', 'GetX', 'HTTP', 'Dio', 'Firebase'],
+      },
     ],
-    stack: ['Flutter', 'GoRouter', 'Provider', 'GetX', 'HTTP', 'Dio', 'Firebase'],
   },
   {
     role: 'Flutter Developer Intern',
     company: '6amTech',
     period: '4-month internship',
-    project: 'SixValley, Hexacom & GroFresh',
-    highlights: [
-      'Resolved 75+ bugs across three apps (user, vendor, delivery) from assigned backlogs.',
-      'Worked with Google Tag Manager, Meta Pixel, and Google Analytics for tracking and performance monitoring.',
-      'Delivered 30+ bug fixes and enhancements for Hexacom and GroFresh across mobile and web.',
-      'Gained exposure to eFood (food delivery) and Demandium (service marketplace).',
-    ],
-    stack: [
-      'Flutter (Mobile & Web)',
-      'Provider',
-      'GetX',
-      'Firebase',
-      'REST',
-      'Google Analytics',
+    projects: [
+      {
+        name: 'SixValley, Hexacom & GroFresh',
+        highlights: [
+          'Resolved 75+ bugs across three apps (user, vendor, delivery) from assigned backlogs.',
+          'Worked with Google Tag Manager, Meta Pixel, and Google Analytics for tracking and performance monitoring.',
+          'Delivered 30+ bug fixes and enhancements for Hexacom and GroFresh across mobile and web.',
+          'Gained exposure to eFood (food delivery) and Demandium (service marketplace).',
+        ],
+        stack: [
+          'Flutter (Mobile & Web)',
+          'Provider',
+          'GetX',
+          'Firebase',
+          'REST',
+          'Google Analytics',
+        ],
+      },
     ],
   },
 ]
