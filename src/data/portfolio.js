@@ -12,7 +12,7 @@ export const profile = {
   tagline:
     'I build cross-platform apps with Flutter — shipping real features on a live multi-vendor e-commerce platform, and building side projects across real-time location, auth, and local-first data.',
   summary:
-    'Flutter developer with practical experience building and maintaining cross-platform mobile and web applications. I contributed to a live multi-vendor e-commerce platform used by real customers, with project work spanning real-time location systems, Firebase authentication, real-time databases, push notifications, and deep linking. Comfortable with clean architecture, state management, and API integration — and steadily deepening my backend skills with Laravel and Node.js.',
+    'Flutter developer with practical experience building and maintaining cross-platform mobile and web applications. I contributed to a live multi-vendor e-commerce platform used by real customers, with project work spanning real-time location systems, Firebase authentication, real-time databases, push notifications, and deep linking. Comfortable with clean architecture, state management, and API integration — and steadily deepening my backend skills with Node.js.',
 }
 
 export const links = {
@@ -24,8 +24,8 @@ export const links = {
 }
 
 export const skills = [
-  { group: 'Languages', items: ['Dart', 'JavaScript', 'PHP (Laravel)'] },
-  { group: 'Backend', items: ['Firebase', 'Laravel', 'Node.js'] },
+  { group: 'Languages', items: ['Dart', 'JavaScript'] },
+  { group: 'Backend', items: ['Firebase', 'Node.js'] },
   { group: 'State management', items: ['Provider', 'GetX'] },
   { group: 'Architecture', items: ['Feature-based', 'Clean Architecture'] },
   { group: 'Local database', items: ['Hive', 'SQFLite', 'Drift'] },
@@ -189,14 +189,6 @@ export const learning = {
       area: 'Native Android',
       note: 'Bridging Flutter to platform APIs over MethodChannel.',
       repos: [{ label: 'Ping-Thing', url: 'https://github.com/anjumArnab/Ping-Thing' }],
-    },
-    {
-      area: 'Laravel',
-      note: 'Auth endpoints and an error-logging backend service.',
-      repos: [
-        { label: 'Try-Catch', url: 'https://github.com/anjumArnab/Try-Catch' },
-        { label: 'Opps-Wrong-Password', url: 'https://github.com/anjumArnab/Opps-Wrong-Password' },
-      ],
     },
     {
       area: 'Node.js',
