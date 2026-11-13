@@ -183,8 +183,13 @@ export const projects = [
 // "Currently leveling up" — growth areas backed by real repos, framed as momentum.
 export const learning = {
   intro:
-    'Flutter is my home base — and I am actively expanding my range: backend services and native platform work, each backed by real shipped code, not just tutorials.',
+    'Flutter is my home base — and I am actively expanding my range: AI tooling, backend services, and native platform work, each backed by real shipped code, not just tutorials.',
   items: [
+    {
+      area: 'AI Tooling',
+      note: 'Designsicle — piping exact Figma design specs to coding agents over MCP.',
+      repos: [{ label: 'Designsicle', url: 'https://github.com/anjumArnab/Designscile' }],
+    },
     {
       area: 'Native Android',
       note: 'Bridging Flutter to platform APIs over MethodChannel.',
@@ -245,5 +250,6 @@ export const nav = [
   { id: 'skills', label: 'Skills' },
   { id: 'learning', label: 'Learning' },
   { id: 'projects', label: 'Projects' },
+  { id: 'blog', label: 'Blog' },
   { id: 'contact', label: 'Contact' },
 ]

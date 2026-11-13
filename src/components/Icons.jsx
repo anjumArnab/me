@@ -64,3 +64,16 @@ export const PackageIcon = (p) => (
     <path d="M12 12v9.5" />
   </svg>
 )
+
+export const MediumIcon = (p) => (
+  <svg {...base} {...p} fill="currentColor" stroke="none" viewBox="0 0 24 24">
+    <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12ZM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.87 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75S24 8.83 24 12Z" />
+  </svg>
+)
+
+export const CloseIcon = (p) => (
+  <svg {...base} {...p}>
+    <path d="M6 6l12 12" />
+    <path d="M18 6 6 18" />
+  </svg>
+)

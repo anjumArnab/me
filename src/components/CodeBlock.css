@@ -1,0 +1,97 @@
+/* ===== IDE-style code block (VS Code Light+ inspired, white editor) ===== */
+.codeblock {
+  margin-top: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface); /* white editor surface */
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* Window chrome: dots + language label — pure white like the editor */
+.codeblock__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.9rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.codeblock__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.codeblock__dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.codeblock__lang {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--faint);
+}
+
+.codeblock pre {
+  margin: 0;
+  padding: 1rem 0.95rem;
+  overflow-x: auto;
+}
+
+.codeblock code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #1e1e1e; /* default editor text */
+  white-space: pre;
+}
+
+/* ===== Tokens (VS Code Light+ palette on white) ===== */
+.tok--comment {
+  color: #008000;
+}
+
+.tok--string {
+  color: #a31515;
+}
+
+.tok--control {
+  color: #af00db; /* control-flow keywords */
+}
+
+.tok--keyword {
+  color: #0000ff;
+}
+
+.tok--number {
+  color: #098658;
+}
+
+.tok--type {
+  color: #267f99;
+}
+
+.tok--func {
+  color: #795e26;
+}
+
+.tok--annotation {
+  color: #795e26;
+}
+
+.tok--property {
+  color: #0451a5; /* JSON keys / HTTP headers */
+}
+
+.tok--tag {
+  color: #800000; /* XML tags */
+}
+
+.tok--attr {
+  color: #ff0000; /* XML attributes */
+}

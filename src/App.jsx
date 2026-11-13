@@ -6,6 +6,7 @@ import Skills from './components/Skills'
 import Learning from './components/Learning'
 import DartOop from './components/DartOop'
 import Projects from './components/Projects'
+import Blog from './components/Blog'
 import Contact from './components/Contact'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Learning />
         <DartOop />
         <Projects />
+        <Blog />
       </main>
       <Contact />
     </>
