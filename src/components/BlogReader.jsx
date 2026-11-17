@@ -131,7 +131,7 @@ export default function BlogReader({ blog, onClose }) {
       <article className="reader__article">
         <header className="reader__head">
           <h2 className="reader__title">{blog.title}</h2>
-          {blog.subtitle && <p className="reader__subtitle">{blog.subtitle}</p>}
+          {blog.subtitle && <p className="reader__subtitle">{renderInline(blog.subtitle)}</p>}
           <div className="reader__tags">
             {blog.tags.map((t) => (
               <span className="tag" key={t}>

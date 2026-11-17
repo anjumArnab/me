@@ -11,15 +11,13 @@ export const blogs = [
     slug: 'flutter-3-50-two-materials-problem',
     title: 'Flutter 3.50: Understanding the Two Material Widget Trees and How to Migrate',
     subtitle:
-      'What broke when we moved two production apps to material_ui, and the small widgets that fixed it.',
+      'What broke when we moved two production apps to `material_ui`, and the small widgets that fixed it.',
     tags: ['Flutter', 'Dart', 'Migration', 'Material'],
     excerpt:
       'Flutter 3.50 deprecates flutter/material.dart in favor of material_ui — and plugins still on the old library quietly break Material.of(), ScaffoldMessenger.of(), and Theme.of(). The migration, and the two small bridge widgets that fixed our production apps.',
     repo: null,
     url: 'https://medium.com/@anjumarnab050/flutter-3-50-and-the-two-materials-problem-6a4443259e0f',
     content: [
-      { type: 'lede', text: 'What broke when we moved two production apps to `material_ui`, and the small widgets that fixed it.' },
-
       { type: 'h2', text: 'TL;DR' },
       { type: 'p', text: 'Flutter 3.50 deprecates `package:flutter/material.dart` and `package:flutter/cupertino.dart`. Material now lives in a separate package: `material_ui` and `cupertino_ui`.' },
       { type: 'p', text: "The official Dart fix migrates your imports in minutes. It can't migrate every plugin you depend on. Any plugin that still imports the old library gets its widgets placed under ancestors from the new library, and `Material.of()` / `ScaffoldMessenger.of()` / `Theme.of()` quietly stop finding what they need." },
@@ -239,8 +237,6 @@ class LegacyMaterialScopeWidget extends StatelessWidget {
     repo: { label: 'Designsicle', url: 'https://github.com/anjumArnab/Designscile' },
     url: 'https://medium.com/@anjumarnab050/designsicle-how-design-context-travels-from-figma-to-a-coding-agent-over-mcp-1d47046b1232',
     content: [
-      { type: 'lede', text: 'A Figma plugin, a WebSocket relay, and a local MCP server — with the actual code that turns Copy link to selection into an exact spec your agent can build from.' },
-
       { type: 'h2', text: 'The Problem' },
       { type: 'p', text: "Ask a coding agent to build UI from a screenshot, and it guesses: approximate colors, spacing, invented font sizes, substituted icons. The agent isn't bad at UI — it never had the design's real numbers. So Designsicle's main feature is about handing those numbers over, exactly:" },
       {
@@ -538,7 +534,6 @@ cd ../server && npm install`,
     repo: { label: 'Ping-Thing', url: 'https://github.com/anjumArnab/Ping-Thing' },
     url: 'https://medium.com/@anjumarnab050/reading-android-network-usage-in-flutter-with-platform-channels-cbd88aab5184',
     content: [
-      { type: 'lede', text: "How to call Android's NetworkStatsManager from Dart using a MethodChannel, with the permission flow, the gotchas, and a per-app version." },
       { type: 'p', text: 'Flutter covers most of what an app needs, but some Android features have no pub.dev package, or the package is outdated. Data usage statistics are one of them. When that happens, you write a small piece of native code and talk to it through a **platform channel**.' },
       { type: 'p', text: 'In this post, I walk through a real example: a Flutter app that reads how many bytes the device has sent and received over mobile data and Wi-Fi. I cover the architecture, each Kotlin function, and the required permission.' },
 
