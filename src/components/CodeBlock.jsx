@@ -35,7 +35,7 @@ const LANGS = {
   },
   shell: {
     control: 'if then else elif fi for do done while case esac',
-    keyword: 'cd npm node npx opencode git run install build add mcp',
+    keyword: 'cd npm node npx opencode git flutter dart pub run install build add mcp',
   },
   http: {
     keyword: 'GET POST PUT PATCH DELETE HEAD OPTIONS true false null',

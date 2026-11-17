@@ -8,6 +8,227 @@ export const mediumProfile = 'https://medium.com/@anjumarnab050'
 
 export const blogs = [
   {
+    slug: 'flutter-3-50-two-materials-problem',
+    title: 'Flutter 3.50: Understanding the Two Material Widget Trees and How to Migrate',
+    subtitle:
+      'What broke when we moved two production apps to material_ui, and the small widgets that fixed it.',
+    tags: ['Flutter', 'Dart', 'Migration', 'Material'],
+    excerpt:
+      'Flutter 3.50 deprecates flutter/material.dart in favor of material_ui — and plugins still on the old library quietly break Material.of(), ScaffoldMessenger.of(), and Theme.of(). The migration, and the two small bridge widgets that fixed our production apps.',
+    repo: null,
+    url: 'https://medium.com/@anjumarnab050/flutter-3-50-and-the-two-materials-problem-6a4443259e0f',
+    content: [
+      { type: 'lede', text: 'What broke when we moved two production apps to `material_ui`, and the small widgets that fixed it.' },
+
+      { type: 'h2', text: 'TL;DR' },
+      { type: 'p', text: 'Flutter 3.50 deprecates `package:flutter/material.dart` and `package:flutter/cupertino.dart`. Material now lives in a separate package: `material_ui` and `cupertino_ui`.' },
+      { type: 'p', text: "The official Dart fix migrates your imports in minutes. It can't migrate every plugin you depend on. Any plugin that still imports the old library gets its widgets placed under ancestors from the new library, and `Material.of()` / `ScaffoldMessenger.of()` / `Theme.of()` quietly stop finding what they need." },
+      { type: 'p', text: 'We hit this in a plain MaterialApp app and in a GetX app. Both fixes were small widgets. This post explains why they work.' },
+
+      { type: 'h2', text: 'What Flutter 3.50 changed' },
+      {
+        type: 'list',
+        items: [
+          '`package:flutter/material.dart` is now annotated `@Deprecated` ("Use package:material_ui"). Same for cupertino.dart -> cupertino_ui.',
+          'The deprecation is only an analyzer info, so the app still compiles.',
+          '`material_ui` is not a re-export of the framework code. It is a decoupled copy that lives in flutter/packages.',
+        ],
+      },
+      { type: 'p', text: '**Consequence:** `ThemeData` from material_ui and ThemeData from flutter/material are two different classes. So are Theme, Material, MaterialLocalizations, ScaffoldMessenger, InputDecoration, InkWell, and so on.' },
+      { type: 'h3', text: 'Compile-time symptom' },
+      {
+        type: 'code',
+        lang: 'text',
+        code: `The argument type 'ThemeData' can't be assigned to the parameter type 'ThemeData?'.
+  — 'ThemeData' is from 'package:material_ui/src/theme_data.dart'
+  — 'ThemeData' is from 'package:flutter/src/material/theme_data.dart'`,
+      },
+      { type: 'h3', text: 'Runtime symptom (the dangerous one, because it compiles)' },
+      { type: 'quote', text: 'No Material widget found. TextField widgets require a Material widget ancestor.' },
+
+      { type: 'h2', text: 'The official migration (and what it does not cover)' },
+      { type: 'p', text: 'Step 1, imports:' },
+      {
+        type: 'code',
+        lang: 'shell',
+        code: `flutter pub add material_ui cupertino_ui
+dart fix --apply --code=migrate_design_widgets lib
+dart fix --apply --code=migrate_design_widgets test`,
+      },
+      { type: 'p', text: 'Step 2, localizations. `GlobalMaterialLocalizations` now exists in BOTH flutter_localizations and material_ui, so importing both is an ambiguity error. Use the new one:' },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `MaterialApp(
+  localizationsDelegates: [
+    AppLocalization.delegate,
+    ...GlobalMaterialLocalizations.delegates, // material + cupertino + widgets
+  ],
+)`,
+      },
+      { type: 'p', text: 'Step 3, plugins that still use the old library. This is where it gets interesting.' },
+
+      { type: 'h3', text: 'What MaterialUiCompatibilityBridge actually does' },
+      { type: 'p', text: '`material_ui` ships a temporary (itself deprecated) widget for legacy plugins:' },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `MaterialApp(
+  builder: (context, child) {
+    // ignore: deprecated_member_use
+    return MaterialUiCompatibilityBridge(child: child!);
+  },
+)`,
+      },
+      { type: 'p', text: 'Reading its source (`lib/src/migration_utility.dart`), it is a StatelessWidget that does exactly two things:' },
+      {
+        type: 'list',
+        items: [
+          '**THEME:** reads the NEW theme with `modern.Theme.of(context)` and wraps the child in a LEGACY Theme built from it.',
+          "**LOCALIZATIONS:** wraps the child in `Localizations.override(…)` with the legacy flutter_localizations delegates. Flutter merges these in front of the parent's delegates, so your own custom delegates still resolve below it.",
+        ],
+      },
+      { type: 'p', text: 'What it does NOT provide, and this is the part that bit us: a legacy Material ancestor, and a legacy ScaffoldMessenger. The bridge is about Theme and Localizations. Nothing else.' },
+
+      { type: 'h3', text: 'Why "No Material widget found" happens when both libraries are present' },
+      { type: 'p', text: "Widgets like InkWell, TextField, IconButton, ListTile and OutlinedButton call a lookup that walks up the tree for a Material surface. In each library, that surface is that library's own Material widget, and the ink controller it exposes is a private type of that library." },
+      { type: 'p', text: 'So: new Scaffold / new Dialog -> provides NEW Material. Old InkWell (inside a plugin) -> looks for OLD Material -> not found -> throws.' },
+      { type: 'p', text: 'Before the migration, there was one Material, so an old plugin widget inside a Scaffold just worked. After that, the Scaffold is new, and the plugin widget is old.' },
+      { type: 'p', text: "Nothing in the stack trace says 'you have two Material libraries'. You just get a red error box where your dialog or sheet should be." },
+
+      { type: 'h3', text: 'Case 1: A plain MaterialApp app' },
+      { type: 'p', text: 'Setup: root is a normal material_ui MaterialApp, bridge in the builder, all our screens use material_ui. The `country_code_picker` plugin (3.4.1) still imports the old library.' },
+      { type: 'p', text: "Repro: tap the flag next to any phone field. The dialog opens with red error boxes, and the console says two exceptions: 'No Material widget found' for the search TextField and for each country row's InkWell (both old widgets inside our new Dialog)." },
+      { type: 'p', text: "How we verified before fixing: a widget probe that pumps the plugin widget under the app's real setup and records what throws:" },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `testWidgets('country picker', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    localizationsDelegates: GlobalMaterialLocalizations.delegates,
+    builder: (context, child) => MaterialUiCompatibilityBridge(child: child!),
+    home: Scaffold(body: Center(child: CodePickerWidget(initialSelection: 'US'))),
+  ));
+  await tester.tap(find.byType(CodePickerWidget));
+  await tester.pumpAndSettle();
+  print(tester.takeException());   // before the fix: "No Material widget found"
+});`,
+      },
+      { type: 'p', text: 'The fix is a widget that gives old widgets an old Material to find:' },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `import 'package:flutter/widgets.dart';
+// ignore: deprecated_member_use
+import 'package:flutter/material.dart' as legacy;
+
+class LegacyMaterialScopeWidget extends StatelessWidget {
+  const LegacyMaterialScopeWidget({super.key, required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return legacy.Material(
+      type: legacy.MaterialType.transparency,
+      child: child,
+    );
+  }
+}`,
+      },
+      { type: 'p', text: "Usage, wrapping only the plugin's widget and placing it INSIDE the Dialog:" },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `showDialog(
+  context: context,
+  builder: (context) => Center(
+    child: Dialog(
+      child: LegacyMaterialScopeWidget(
+        child: SelectionDialog(...), // the plugin's widget
+      ),
+    ),
+  ),
+);`,
+      },
+      { type: 'p', text: "Why inside the Dialog and not at the app root? Ink effects (ripples) paint on the nearest Material's canvas. A root-level Material sits behind every opaque surface, so the ripple is painted and then hidden. Inside the Dialog, it paints above the dialog's background and stays visible." },
+      { type: 'p', text: "Result: dialog opens, search filters, tapping 'Bangladesh' returns +880, zero exceptions. One wrapper fixed every screen that has a phone field, because they all share the widget." },
+      { type: 'p', text: 'It is transparent: it draws nothing and changes no layout or colors. It only gives old widgets something to find. When the plugin migrates to material_ui, delete it.' },
+
+      { type: 'h3', text: 'Case 2: A GetX app (the harder one)' },
+      { type: 'p', text: "GetX's GetMaterialApp is built on the OLD MaterialApp. The GetX fork we use imports flutter/material.dart in about 20 of its own files. So here the ROOT of the app is old." },
+      { type: 'p', text: '**Problem A:** the theme.' },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `GetMaterialApp(theme: modernThemeData) // compile error: legacy ThemeData expected`,
+      },
+      { type: 'p', text: "You cannot hand a material_ui ThemeData to GetMaterialApp. Our fix: don't pass it there. Put a new Theme in the builder instead, and let the bridge map it down for legacy plugins:" },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `GetMaterialApp(
+  localizationsDelegates: GlobalMaterialLocalizations.delegates,
+  builder: (context, child) => Theme(
+    data: isDark ? dark : light,                    // NEW theme, added by us
+    child: MaterialUiCompatibilityBridge(           // copies it to a legacy Theme
+      child: MaterialBridgeWidget(child: child!),
+    ),
+  ),
+)`,
+      },
+      { type: 'p', text: 'In a normal MaterialApp the new Theme comes for free from theme:, and the bridge just converts it. In GetMaterialApp there is no new Theme to convert, so we create it.' },
+      { type: 'p', text: '**Problem B:** modern widgets inside GetX routes. Get.bottomSheet and Get.dialog build on the old BottomSheet / route, which provides only the OLD Material. Our own widgets are new. A new InkWell inside a GetX bottom sheet fails with "No Material widget found".' },
+      { type: 'p', text: 'The visible symptom was strange:' },
+      {
+        type: 'code',
+        lang: 'text',
+        code: `A RenderFlex overflowed by 99663 pixels on the right.
+  Row ordered_product_list_widget.dart:22`,
+      },
+      { type: 'p', text: "The real error was the first one in the log ('No Material widget found' on the close button's InkWell). An error widget replaced the failed widget, and the layout exploded. Fixing the Material removed the overflow too. Lesson: with cascading Flutter errors, always read the FIRST exception." },
+      { type: 'p', text: 'We reproduced it with a throwaway test that mirrors the real builder and opens the sheet through Get.bottomSheet, then confirmed it was gone after the fix.' },
+      { type: 'p', text: '**Problem C:** ScaffoldMessenger. Production log:' },
+      {
+        type: 'quote',
+        text: 'Unhandled Exception: No ScaffoldMessenger widget found.\nNavigator widgets require a ScaffoldMessenger widget ancestor.',
+      },
+      { type: 'p', text: "Two helpers did `ScaffoldMessenger.of(Get.context!).showSnackBar(…)`, one for a connectivity banner and one for a download toast. Get.context is the Navigator's context and the root is an old MaterialApp, so the only messenger above it is the OLD one. The call asks for the NEW one and does not find it. It surfaced as an unhandled async error inside a connectivity listener, which is why it appeared after unrelated API logs." },
+      { type: 'p', text: '**Problem D:** MaterialLocalizations. Modern widgets (AppBar, date pickers) need the NEW MaterialLocalizations. GetMaterialApp only adds the old default, so we pass `localizationsDelegates: GlobalMaterialLocalizations.delegates` (new) explicitly.' },
+      { type: 'p', text: 'One widget fixes B and C and also covers old plugin widgets:' },
+      {
+        type: 'code',
+        lang: 'dart',
+        code: `class MaterialBridgeWidget extends StatelessWidget {
+  const MaterialBridgeWidget({super.key, required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldMessenger(                          // NEW messenger
+      child: legacy.Material(                          // OLD Material for legacy widgets
+        type: legacy.MaterialType.transparency,
+        child: Material(                               // NEW Material for our widgets
+          type: MaterialType.transparency,
+          child: child,
+        ),
+      ),
+    );
+  }
+}`,
+      },
+      { type: 'p', text: "(legacy is `import 'package:flutter/material.dart' as legacy`; Material and ScaffoldMessenger without a prefix are material_ui)" },
+      { type: 'p', text: 'Because the messenger sits above the Navigator, `ScaffoldMessenger.of(Get.context!)` finds it, and SnackBars show on whichever new Scaffold is on screen. We also wrapped each GetX bottom sheet\u2019s content in its own transparent Material so the ripples are visible, for the same paint-order reason as in section 5.' },
+      { type: 'p', text: 'We verified with a test mirroring the real builder (snackbar through Get.context, a Get.bottomSheet and a Get.dialog containing InkWell/TextField/TextButton): all pass, zero exceptions.' },
+
+      { type: 'h3', text: 'Versions we used' },
+      { type: 'p', text: 'Flutter 3.50.0 (Dart 3.14.0), material_ui 1.11.0, cupertino_ui 1.1.6, country_code_picker 3.4.1, flutter_localizations (SDK), Gradle 9.5.0, AGP 9.3.1, Kotlin 2.4.20.' },
+
+      { type: 'h2', text: 'Key takeaway' },
+      { type: 'p', text: "A deprecation that is only an 'info' can hide a runtime break. During the transition, you do not have one Material; you have two, and everything that looks up the tree (Theme, Material, ScaffoldMessenger, MaterialLocalizations) only sees its own copy. The fix is not clever: give each side the ancestors it expects, as close to the widgets that need them as you can, and delete the shims as plugins catch up." },
+    ],
+  },
+
+  {
     slug: 'designsicle-figma-to-agent-over-mcp',
     title: 'Designsicle: How Design Context Travels From Figma to a Coding Agent Over MCP',
     subtitle:
