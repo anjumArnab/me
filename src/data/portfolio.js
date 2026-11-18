@@ -238,13 +238,6 @@ export const dartOop = {
   repo: { label: 'anjumArnab/dart_oop', url: 'https://github.com/anjumArnab/dart_oop' },
 }
 
-export const education = {
-  degree: 'BSc in Textile Engineering',
-  school: 'Textile Engineering College, Zorargonj, Chattagram',
-  period: 'Mar 2020 – Oct 2025',
-  cgpa: 'CGPA 3.35 / 4.00',
-}
-
 export const nav = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
