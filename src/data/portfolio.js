@@ -45,7 +45,7 @@ export const skills = [
 ]
 
 // A role can span several products, so each job holds a list of projects.
-// Both lists run newest-first: latest job first, latest project first within it.
+// Jobs run newest-first; projects within a job are ordered by emphasis.
 export const experience = [
   {
     role: 'Junior Software Engineer',
@@ -53,12 +53,16 @@ export const experience = [
     period: 'May 2025 – Present',
     projects: [
       {
-        name: 'Demandium — Service Marketplace (User, Provider & Serviceman apps)',
+        name: 'SixValley — Multi-Vendor E-Commerce (User, Vendor & Delivery apps)',
         highlights: [
-          'Delivered a full redesign of the user, provider, and serviceman apps.',
-          'Integrated a new business model across the ecosystem, reworking the flows it touched.',
+          'Built the Auction feature across the SixValley ecosystem, turning Figma designs into production-ready Flutter and coordinating backend integration across multiple apps.',
+          'Implemented the Wholesale module across the SixValley ecosystem, delivering bulk pricing and minimum order workflows while coordinating backend integration across customer and vendor applications.',
+          'Optimized app performance by profiling UI and raster threads, identifying unnecessary widget rebuilds, and optimizing rendering.',
+          'Integrated REST APIs and worked with backend engineers through the full feature lifecycle.',
+          'Implemented payment gateways, push notifications, and deep linking for auction and wholesale workflows.',
+          'Collaborated with UI/UX designers, backend engineers, QA, and project managers to ship features.',
         ],
-        stack: ['Flutter', 'GetX', 'REST'],
+        stack: ['Flutter', 'GoRouter', 'Provider', 'GetX', 'HTTP', 'Dio', 'Firebase'],
       },
       {
         name: '6amMart Service Module — Service Marketplace (User, Provider & Serviceman apps)',
@@ -70,15 +74,12 @@ export const experience = [
         stack: ['Flutter', 'GetX', 'Provider', 'REST'],
       },
       {
-        name: 'SixValley — Multi-Vendor E-Commerce (User, Vendor & Delivery apps)',
+        name: 'Demandium — Service Marketplace (User, Provider & Serviceman apps)',
         highlights: [
-          'Built the Auction feature across the SixValley ecosystem, turning Figma designs into production-ready Flutter and coordinating backend integration across multiple apps.',
-          'Resolved 100+ bugs in the Auction module, improving stability and user experience.',
-          'Integrated REST APIs and worked with backend engineers through the full feature lifecycle.',
-          'Implemented payment gateways, push notifications, and deep linking for auction workflows.',
-          'Collaborated with UI/UX designers, backend engineers, QA, and project managers to ship features.',
+          'Delivered a full redesign of the user, provider, and serviceman apps.',
+          'Integrated a new business model across the ecosystem, reworking the flows it touched.',
         ],
-        stack: ['Flutter', 'GoRouter', 'Provider', 'GetX', 'HTTP', 'Dio', 'Firebase'],
+        stack: ['Flutter', 'GetX', 'REST'],
       },
     ],
   },
