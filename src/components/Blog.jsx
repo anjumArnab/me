@@ -1,13 +1,13 @@
-import { useState } from 'react'
 import { blogs, mediumProfile } from '../data/blogs'
 import { useReveal } from '../hooks/useReveal'
+import { useBlogRoute } from '../hooks/useBlogRoute'
 import BlogCard from './BlogCard'
 import BlogReader from './BlogReader'
 import './Blog.css'
 
 export default function Blog() {
   const ref = useReveal()
-  const [activeSlug, setActiveSlug] = useState(null)
+  const { activeSlug, openBlog, closeBlog } = useBlogRoute()
   const active = blogs.find((b) => b.slug === activeSlug)
 
   return (
@@ -29,13 +29,13 @@ export default function Blog() {
               key={blog.slug}
               blog={blog}
               index={i}
-              onRead={() => setActiveSlug(blog.slug)}
+              onRead={() => openBlog(blog.slug)}
             />
           ))}
         </div>
       </div>
 
-      {active && <BlogReader blog={active} onClose={() => setActiveSlug(null)} />}
+      {active && <BlogReader blog={active} onClose={closeBlog} />}
     </section>
   )
 }

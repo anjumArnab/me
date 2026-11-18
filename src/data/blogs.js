@@ -19,8 +19,8 @@ export const blogs = [
     url: 'https://medium.com/@anjumarnab050/flutter-3-50-and-the-two-materials-problem-6a4443259e0f',
     content: [
       { type: 'h2', text: 'TL;DR' },
-      { type: 'p', text: 'Flutter 3.50 deprecates `package:flutter/material.dart` and `package:flutter/cupertino.dart`. Material now lives in a separate package: `material_ui` and `cupertino_ui`.' },
-      { type: 'p', text: "The official Dart fix migrates your imports in minutes. It can't migrate every plugin you depend on. Any plugin that still imports the old library gets its widgets placed under ancestors from the new library, and `Material.of()` / `ScaffoldMessenger.of()` / `Theme.of()` quietly stop finding what they need." },
+      { type: 'p', text: 'Flutter 3.50 deprecates `package:flutter/material.dart` and `package:flutter/cupertino.dart`.' },
+      { type: 'p', text: "Material now lives in a separate package, `material_ui` and `cupertino_ui`. The official Dart fix migrates your imports in minutes. But it can't migrate every plugin you depend on. Any plugin that still imports the old library gets its widgets placed under ancestors from the new library, and `Material.of()` / `ScaffoldMessenger.of()` / `Theme.of()` quietly stop finding what they need." },
       { type: 'p', text: 'We hit this in a plain MaterialApp app and in a GetX app. Both fixes were small widgets. This post explains why they work.' },
 
       { type: 'h2', text: 'What Flutter 3.50 changed' },
@@ -96,7 +96,7 @@ dart fix --apply --code=migrate_design_widgets test`,
 
       { type: 'h3', text: 'Case 1: A plain MaterialApp app' },
       { type: 'p', text: 'Setup: root is a normal material_ui MaterialApp, bridge in the builder, all our screens use material_ui. The `country_code_picker` plugin (3.4.1) still imports the old library.' },
-      { type: 'p', text: "Repro: tap the flag next to any phone field. The dialog opens with red error boxes, and the console says two exceptions: 'No Material widget found' for the search TextField and for each country row's InkWell (both old widgets inside our new Dialog)." },
+      { type: 'p', text: "**What broke**: Our sign-up screen has a phone number field with a country flag button. After upgrading to Flutter 3.50, tapping that flag opens the country picker, but instead of a list of countries, you get red error boxes. The console shows the same error twice: `No Material widget found`. It comes from the search `TextField` and from the `InkWell` in each country row. Both are old `Material` widgets, and they were sitting inside our new `Dialog`, which doesn\u2019t provide the `Material` ancestor they expect." },
       { type: 'p', text: "How we verified before fixing: a widget probe that pumps the plugin widget under the app's real setup and records what throws:" },
       {
         type: 'code',
@@ -148,7 +148,7 @@ class LegacyMaterialScopeWidget extends StatelessWidget {
   ),
 );`,
       },
-      { type: 'p', text: "Why inside the Dialog and not at the app root? Ink effects (ripples) paint on the nearest Material's canvas. A root-level Material sits behind every opaque surface, so the ripple is painted and then hidden. Inside the Dialog, it paints above the dialog's background and stays visible." },
+      { type: 'p', text: "Why inside the Dialog and not at the app root? Ink effects (ripples) paint on the nearest Material's canvas. A root-level Material sits behind every opaque surface, so it paints the ripple and then hides it. Inside the Dialog, it paints above the dialog's background and stays visible." },
       { type: 'p', text: "Result: dialog opens, search filters, tapping 'Bangladesh' returns +880, zero exceptions. One wrapper fixed every screen that has a phone field, because they all share the widget." },
       { type: 'p', text: 'It is transparent: it draws nothing and changes no layout or colors. It only gives old widgets something to find. When the plugin migrates to material_ui, delete it.' },
 
@@ -191,7 +191,7 @@ class LegacyMaterialScopeWidget extends StatelessWidget {
         text: 'Unhandled Exception: No ScaffoldMessenger widget found.\nNavigator widgets require a ScaffoldMessenger widget ancestor.',
       },
       { type: 'p', text: "Two helpers did `ScaffoldMessenger.of(Get.context!).showSnackBar(…)`, one for a connectivity banner and one for a download toast. Get.context is the Navigator's context and the root is an old MaterialApp, so the only messenger above it is the OLD one. The call asks for the NEW one and does not find it. It surfaced as an unhandled async error inside a connectivity listener, which is why it appeared after unrelated API logs." },
-      { type: 'p', text: '**Problem D:** MaterialLocalizations. Modern widgets (AppBar, date pickers) need the NEW MaterialLocalizations. GetMaterialApp only adds the old default, so we pass `localizationsDelegates: GlobalMaterialLocalizations.delegates` (new) explicitly.' },
+      { type: 'p', text: '**Problem D:** MaterialLocalizations. Modern widgets (AppBar, date pickers) need the NEW MaterialLocalizations. GetMaterialApp only adds the old default, so we explicitly pass `localizationsDelegates: GlobalMaterialLocalizations.delegates` (new).' },
       { type: 'p', text: 'One widget fixes B and C and also covers old plugin widgets:' },
       {
         type: 'code',
