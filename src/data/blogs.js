@@ -33,7 +33,7 @@ export const blogs = [
         ],
       },
       { type: 'p', text: '**Consequence:** `ThemeData` from material_ui and ThemeData from flutter/material are two different classes. So are Theme, Material, MaterialLocalizations, ScaffoldMessenger, InputDecoration, InkWell, and so on.' },
-      { type: 'h3', text: 'Compile-time symptom' },
+      { type: 'h3', text: 'Compile-time issue' },
       {
         type: 'code',
         lang: 'text',
@@ -41,8 +41,12 @@ export const blogs = [
   — 'ThemeData' is from 'package:material_ui/src/theme_data.dart'
   — 'ThemeData' is from 'package:flutter/src/material/theme_data.dart'`,
       },
-      { type: 'h3', text: 'Runtime symptom (the dangerous one, because it compiles)' },
-      { type: 'quote', text: 'No Material widget found. TextField widgets require a Material widget ancestor.' },
+      { type: 'h3', text: 'Runtime issue (the dangerous one, because it compiles)' },
+      {
+        type: 'code',
+        lang: 'text',
+        code: `No Material widget found. TextField widgets require a Material widget ancestor.`,
+      },
 
       { type: 'h2', text: 'The official migration (and what it does not cover)' },
       { type: 'p', text: 'Step 1, imports:' },
