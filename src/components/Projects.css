@@ -21,13 +21,16 @@
   gap: 0.55rem;
 }
 
+/* Two cards per row (one page = a 2x2 grid); collapses to one on phones. */
 .projects__grid {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.15rem;
 }
 
+/* Cards are landscape (wider than tall): text is clamped so the card
+   height stays below its width at the two-column size. */
 .project {
   display: flex;
   flex-direction: column;
@@ -36,6 +39,7 @@
   background: var(--surface);
   padding: 1.6rem;
   transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  animation: card-in 0.3s ease backwards;
 }
 
 .project:hover {
@@ -83,6 +87,11 @@
   color: var(--muted);
   font-size: 0.95rem;
   margin-top: 0.5rem;
+  /* Clamp to two lines — keeps the card landscape */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .project__highlights {
@@ -155,4 +164,26 @@
 .project__link.is-primary:hover {
   background: var(--accent-ink);
   border-color: var(--accent-ink);
+}
+
+/* One card per row on small screens */
+@media (max-width: 720px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Soft re-entry when a new page of cards mounts.
+   'backwards' fill only — the hover lift keeps working afterwards. */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project {
+    animation: none;
+  }
 }
