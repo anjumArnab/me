@@ -1,6 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#14161a"/>
-  <text x="50%" y="52%" dy=".35em" text-anchor="middle"
-    font-family="'Space Grotesk', system-ui, sans-serif" font-size="30"
-    font-weight="700" fill="#ffffff" letter-spacing="1">SA</text>
+  <!-- ~/ - the site's terminal home-path motif (matches the hero status line).
+       Rendered as text in a monospace stack so the tilde sits low on the
+       baseline and aligns with the slash, exactly like the ~/skills text.
+       Transparent background; the ~ adapts to light/dark browser tabs. -->
+  <style>
+    .t { fill: #14161a; }
+    @media (prefers-color-scheme: dark) {
+      .t { fill: #ffffff; }
+    }
+  </style>
+  <text x="32" y="43" text-anchor="middle"
+        font-family="'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, Menlo, monospace"
+        font-size="46" font-weight="500"><tspan class="t" font-size="58">~</tspan><tspan fill="#2947f0">/</tspan></text>
 </svg>

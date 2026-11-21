@@ -22,21 +22,33 @@
 .nav__brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
   font-family: var(--font-display);
   font-weight: 600;
 }
 
-.nav__mark {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--ink);
-  color: #fff;
-  font-size: 0.78rem;
-  letter-spacing: 0.03em;
+/* The ~/ prompt — same mono-text treatment as the hero's ~/skills line.
+   Vertically centered on the name beside it. */
+.nav__prompt {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1;
+  letter-spacing: -0.08em; /* pull the pair together slightly */
+}
+
+.nav__prompt-tilde {
+  color: var(--ink);
+  font-size: 1.45rem; /* bigger than the slash — reads clearly at nav size */
+  /* No manual nudge: measured from JetBrains Mono's glyph bboxes, the ~
+     (ink center 0.3525em) and / (0.36em) sit centered in their line boxes
+     by design — align-items: center already lands both on the row's
+     centerline. Adding a translate here is what mis-centered the ~. */
+}
+
+.nav__prompt-slash {
+  color: var(--accent);
 }
 
 .nav__name {

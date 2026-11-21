@@ -25,8 +25,11 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
       <div className="container nav__inner">
         <a href="#top" className="nav__brand" onClick={() => setOpen(false)}>
-          <span className="nav__mark">SA</span>
-          <span className="nav__name">Sakib Anjum Arnab</span>
+          <span className="nav__prompt" aria-hidden="true">
+            <span className="nav__prompt-tilde">~</span>
+            <span className="nav__prompt-slash">/</span>
+          </span>
+          <span className="nav__name">arnab</span>
         </a>
 
         <nav className={`nav__links ${open ? 'is-open' : ''}`} aria-label="Primary">
