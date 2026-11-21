@@ -43,6 +43,10 @@ const LANGS = {
   json: {
     keyword: 'true false null',
   },
+  yaml: {
+    // keys (word before ':') and version strings highlighted as keywords
+    keyword: 'dependencies dev_dependencies flutter sdk',
+  },
   xml: {},
 }
 
@@ -52,7 +56,7 @@ function regexFor(lang) {
   if (CACHE.has(lang)) return CACHE.get(lang)
 
   const L = LANGS[lang] ?? LANGS.json
-  const data = lang === 'json' || lang === 'http'
+  const data = lang === 'json' || lang === 'http' || lang === 'yaml'
   const xml = lang === 'xml'
 
   // Match priority = array order. Comments and strings first so their
